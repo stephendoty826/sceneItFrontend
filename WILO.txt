@@ -1,4 +1,8 @@
 
 TODO
 
+- Work on login and register components and link them to backend
+
+- 
+
 - When user initially goes to site, they can browse movies but if they click on Add to Watchlist, prompt them to login or create an account.
