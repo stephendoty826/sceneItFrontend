@@ -5,7 +5,6 @@ const BaseLayout = (props) => {
   return (
     <>
       <Header />
-      <br /> <br />
 
       {props.children}
     </>
