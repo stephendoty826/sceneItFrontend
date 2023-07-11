@@ -2,6 +2,7 @@
 TODO
 
 - Work on login and register components and link them to backend
+  - Ensure email has @ in the email??? Better way to ensure the email is an actual email???
   - Write logic to ensure password and confirm password are same
   - Disable button until they are the same
   - Have bootstrap warning display when passwords are not the same
