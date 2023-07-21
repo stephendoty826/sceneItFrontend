@@ -1,17 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 
 const Register = () => {
 
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [password, setPassword] = useState(null)
+  const [confirmPassword, setConfirmPassword] = useState(null)
+  const [showAlert, setShowAlert] = useState(false)
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
   //todo write logic to ensure password and confirm password are the same and enable button when they are. Give Bootstrap warning when they are not the same.
   useEffect(() => {
-    console.log('working')
+    if(password !== null && confirmPassword !== null){
+      console.log('working')
+      if(password === confirmPassword){
+        setButtonDisabled(false)
+        setShowAlert(false)
+      }
+      else{
+        setButtonDisabled(true)
+        setShowAlert(true)
+      }
+    }
   }, [password, confirmPassword])
 
   return (
@@ -35,6 +47,7 @@ const Register = () => {
             <Button variant="primary" type="submit" disabled={buttonDisabled}>
               Submit
             </Button>
+            {showAlert && <Alert className="mt-3" variant="danger">Passwords do not match</Alert>} 
           </Form>
         </div>
       </div>

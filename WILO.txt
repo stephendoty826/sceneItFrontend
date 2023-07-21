@@ -1,4 +1,7 @@
 
+Left off
+  - Confirm "/logout route is sending json to frontend. Use .json() on frontend
+
 TODO
 
 - Work on login and register components and link them to backend
