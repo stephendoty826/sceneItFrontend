@@ -11,7 +11,6 @@ const Register = () => {
   const [showAlert, setShowAlert] = useState(false)
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
-  //todo write logic to ensure password and confirm password are the same and enable button when they are. Give Bootstrap warning when they are not the same.
   useEffect(() => {
     if(password !== null && confirmPassword !== null){
       console.log('working')
