@@ -7,11 +7,13 @@ const Header = () => {
 
   const handleLogout = async () => {
     let response = await fetch('/logout')
-
+    //todo - Have logout function destroy cookie on frontend as well. Cookie will be made on Header to hold first name of user. 
     response = await response.json()
     console.log(response)
     navigate("/login")
   }
+  //todo - Have Watchlist link only display when you are logged in.
+  //todo - Have either Login or Logout displayed depending on whether or not you're logged in. 
 
   return (
     <>
