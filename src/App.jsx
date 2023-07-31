@@ -1,7 +1,11 @@
 
 import './App.css';
+import cookies from 'js-cookie'
 
 function App() {
+
+  console.log(window.location.href)
+
   return (
     <>
       <div className="container">

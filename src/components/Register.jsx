@@ -32,6 +32,10 @@ const Register = () => {
         <div className="col-12 d-flex justify-content-center">
           <Form action="/register" method="POST" className="col-5">
             <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>First name</Form.Label>
+              <Form.Control type="text" placeholder="First name" name="firstName" required />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" name="email" value={email} required onChange={(e)=>setEmail(e.target.value)}/>
             </Form.Group>

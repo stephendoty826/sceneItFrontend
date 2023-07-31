@@ -7,6 +7,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     let response = await fetch('/logout')
+
     response = await response.json()
     console.log(response)
     navigate("/login")

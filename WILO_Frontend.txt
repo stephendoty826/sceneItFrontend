@@ -1,7 +1,7 @@
+WHERE I LEFT OFF - frontend
 
 Left off
-  - Working to send user data from session to frontend (can you decode cookie and get data on frontend easily???).
-  - Add firstName to user table and set up form to add firstName. 
+  - Sending firstName to frontend on url. Look into string methods to grab firstName so it can be used on frontend. Look for index of last "/" and slice after that to the end???
   - Display firstName with a `Welcome ${firstName}` on home page if the user is signed in and display "Welcome" when they are not.  
 
 TODO

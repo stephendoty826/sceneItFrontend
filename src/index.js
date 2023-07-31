@@ -14,7 +14,7 @@ root.render(
     <Router>
       <BaseLayout>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/:firstName" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
