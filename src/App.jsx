@@ -1,10 +1,17 @@
 
 import './App.css';
-import cookies from 'js-cookie'
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 function App() {
 
-  console.log(window.location.href)
+  const firstName = useParams().firstName
+
+  if(!Cookies.get('firstName') && firstName !== 'home'){
+    Cookies.set("firstName", firstName, {expires: 14})
+    console.log('firstName set in cookie')
+  }
 
   return (
     <>
@@ -13,7 +20,6 @@ function App() {
           <div className="col-12 header text-center mb-3">
             <h2 style={{color: "black"}}>Search for movies you want to watch.</h2>
             <h4>Save them to your list</h4>
-            <a href="watchlist.html">Show My Watchlist</a>
           </div>
         </div>
         <div className="row d-flex justify-content-center">

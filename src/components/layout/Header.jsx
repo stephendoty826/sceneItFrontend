@@ -1,14 +1,25 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const Header = () => {
+
+  const [firstName, setFirstName] = useState('')
+
+  useEffect(()=>{
+    if(!Cookies.get('firstName')){}
+    setFirstName(Cookies.get("firstName"))
+  }, [])
+
+  console.log("firstName", firstName)
 
   const navigate = useNavigate()
 
   const handleLogout = async () => {
-    let response = await fetch('/logout')
-    //todo - Have logout function destroy cookie on frontend as well. Cookie will be made on Header to hold first name of user. 
-    response = await response.json()
+    Cookies.remove('firstName') // removes firstName from cookie on frontend
+    setFirstName('')
+    let response = await fetch('/logout') // destroys session on backend
+    response = await response.json() 
     console.log(response)
     navigate("/login")
   }
@@ -20,10 +31,21 @@ const Header = () => {
     <div className="container">
       <div className="row">
         <div className="col-12 header text-center mb-3">
-          <Link to="/" style={{textDecoration: "none"}}><h2 className="display-2">Scene It</h2></Link>
-          <Link to="/login" className="pe-4">Login</Link>
-          <Link to="/register" className="pe-4">Register</Link>
-          <a href="#" onClick={handleLogout}>Logout</a>
+          <Link to="/home" style={{textDecoration: "none"}}><h2 className="display-2">Scene It</h2></Link>
+          {firstName 
+          ?
+          <div className="d-flex justify-content-center">
+            <div>Welcome, {firstName}</div>
+            <a className="px-3" href="watchlist.html">My Watchlist</a>
+            <a href="#" onClick={handleLogout}>Logout</a>
+          </div>
+          :
+          <>
+            <Link to="/login" className="pe-4">Login</Link>
+            <Link to="/register" className="pe-4">Register</Link>
+          </>          
+          }
+          
         </div>
       </div>
     </div>
