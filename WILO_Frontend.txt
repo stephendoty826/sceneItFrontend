@@ -1,7 +1,7 @@
 WHERE I LEFT OFF - frontend
 
 Left off
-  - 
+  - ****NOTE**** Make a branch for different features you are working on. Get use to doing the normal dev process of pushing to that branch on remote, doing a pull request, approving the pull request, and then pulling down updated to main and merging main into the current working branch. 
 
 TODO
 
