@@ -5,6 +5,9 @@ Left off
 
 TODO
 
+- Get search functionality working
+- 
+
 - Ensure email has @ in the email??? Better way to ensure the email is an actual email???
 - When user initially goes to site, they can browse movies but if they click on Add to Watchlist, prompt them to login or create an account.
 - Have account page where you can update your email and change your password??? Other misc account things???

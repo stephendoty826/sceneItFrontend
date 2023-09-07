@@ -4,10 +4,13 @@ import Cookies from 'js-cookie'
 
 const Header = () => {
 
-  const [firstName, setFirstName] = useState('')
+  const [firstName, setFirstName] = useState(undefined)
 
   useEffect(()=>{
-    if(!Cookies.get('firstName')){}
+    //todo: what is this if-statement supposed to do?
+    if(!Cookies.get("firstName")){
+      console.log('test')
+    }
     setFirstName(Cookies.get("firstName"))
   }, [])
 
@@ -17,7 +20,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     Cookies.remove('firstName') // removes firstName from cookie on frontend
-    setFirstName('')
+    setFirstName(undefined)
     let response = await fetch('/logout') // destroys session on backend
     response = await response.json() 
     console.log(response)
@@ -36,7 +39,7 @@ const Header = () => {
           ?
           <div className="d-flex justify-content-center">
             <div>Welcome, {firstName}</div>
-            <a className="px-3" href="watchlist.html">My Watchlist</a>
+            <Link className="px-3" to="/watchlist">My Watchlist</Link>
             <a href="#" onClick={handleLogout}>Logout</a>
           </div>
           :
