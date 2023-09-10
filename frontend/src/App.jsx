@@ -6,11 +6,16 @@ import Cookies from 'js-cookie'
 
 function App() {
 
-  const firstName = useParams().firstName
+  const firstName = useParams().firstName;
 
-  if(!Cookies.get('firstName') && firstName !== 'home'){
-    Cookies.set("firstName", firstName, {expires: 14})
-    console.log('firstName set in cookie')
+  const firstNameInCookies = Cookies.get('firstName');
+
+  console.log("firstNameInCookies", firstNameInCookies);
+
+  // sets firstName in cookies when user logs in 
+  if(!firstNameInCookies && firstName !== 'home'){
+    Cookies.set("firstName", firstName, {expires: 14});
+    console.log('firstName set in cookie');
   }
 
   return (
@@ -19,7 +24,7 @@ function App() {
         <div className="row">
           <div className="col-12 header text-center mb-3">
             <h2 style={{color: "black"}}>Search for movies you want to watch.</h2>
-            <h4>Save them to your list</h4>
+            {firstNameInCookies ? <h4>Save them to your watchlist</h4> : <h4>Login to save them to your watchlist</h4>}
           </div>
         </div>
         <div className="row d-flex justify-content-center">
