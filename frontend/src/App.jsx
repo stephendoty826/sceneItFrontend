@@ -1,10 +1,26 @@
 
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie'
+import SearchBar from './components/SearchBar';
+import MovieCard from './components/MovieCard'
+import axios from 'axios';
 
 function App() {
+
+  const [searchField, setSearchField] = useState("");
+  const [movieArray, setMovieArray] = useState([]);
+
+  const apiKey = "c308ac58";
+
+  const fetchMovieData = (urlEncodedSearchField) => {
+    axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${urlEncodedSearchField}&page=1`)
+    .then(response => {
+      console.log(response.data.Search);
+      setMovieArray(response.data.Search)
+    })
+  }
 
   const firstName = useParams().firstName;
 
@@ -27,15 +43,13 @@ function App() {
             {firstNameInCookies ? <h4>Save them to your watchlist</h4> : <h4>Login to save them to your watchlist</h4>}
           </div>
         </div>
-        <div className="row d-flex justify-content-center">
-          <div className="col-11 search">
-            <form id="search-form">
-              <div className="input-group input-group-lg">
-                <input className="form-control search-bar" id="search-bar" placeholder="Search for a movie..."/>
-                <button className="btn btn-primary input-group-btn" type="submit">Search</button>
-              </div>
-            </form>
-          </div>
+        <SearchBar searchField={searchField} setSearchField={setSearchField} fetchMovieData={fetchMovieData}/>
+        <div class="row">
+          {/* map through array and return MovieCard components */}
+          {movieArray.map(movie => {
+            // pass down props to MovieCard and display movie data
+            return <MovieCard />
+          })}
         </div>
       </div>
     </>
