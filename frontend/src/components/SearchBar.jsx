@@ -17,7 +17,7 @@ const SearchBar = ({searchField, setSearchField, fetchMovieData}) => {
           <div className="col-11 search">
             <Form id="search-form" onSubmit={(e) => {handleSubmit(e)}}>
               <Form.Group className="input-group input-group-lg">
-                <Form.Control value={searchField} onChange={(e)=>{setSearchField(e.target.value)}}className="form-control search-bar" id="search-bar" placeholder="Search for a movie..."/>
+                <Form.Control value={searchField} onChange={(e)=>{setSearchField(e.target.value)}}className="form-control search-bar" id="search-bar" placeholder="Search for a movie or series..."/>
                 <Button variant="primary" type="submit">Search</Button>
               </Form.Group>
             </Form>

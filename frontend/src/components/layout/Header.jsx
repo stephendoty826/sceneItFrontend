@@ -7,14 +7,8 @@ const Header = () => {
   const [firstName, setFirstName] = useState(undefined)
 
   useEffect(()=>{
-    //todo: what is this if-statement supposed to do?
-    if(!Cookies.get("firstName")){
-      console.log('test')
-    }
     setFirstName(Cookies.get("firstName"))
   }, [])
-
-  console.log("firstName", firstName)
 
   const navigate = useNavigate()
 
@@ -23,36 +17,35 @@ const Header = () => {
     setFirstName(undefined)
     let response = await fetch('/logout') // destroys session on backend
     response = await response.json() 
-    console.log(response)
+    console.log(response) // message indicating whether or not log out was successful
     navigate("/login")
   }
-  //todo - Have Watchlist link only display when you are logged in.
-  //todo - Have either Login or Logout displayed depending on whether or not you're logged in. 
 
   return (
     <>
-    <div className="container">
-      <div className="row">
-        <div className="col-12 header text-center mb-3">
-          <Link to="/home" style={{textDecoration: "none"}}><h2 className="display-2">Scene It</h2></Link>
-          {firstName 
-          ?
-          <div className="d-flex justify-content-center">
-            <div>Welcome, {firstName}</div>
-            <Link className="px-3" to="/watchlist">My Watchlist</Link>
-            <a href="#" onClick={handleLogout}>Logout</a>
+      <div className="container">
+        <div className="row">
+          <div className="col-12 header text-center mb-2">
+            <Link to="/home" style={{textDecoration: "none"}}><h2 className="display-2">Scene It</h2></Link>
+            {firstName 
+            ?
+            // displayed when user is logged in
+            <div className="d-flex justify-content-center">
+              <div>Welcome, {firstName}</div>
+              <Link className="px-3" to="/watchlist">My Watchlist</Link>
+              <a href="#" onClick={handleLogout}>Logout</a>
+            </div>
+            :
+            // displayed when user is not logged in
+            <>
+              <Link to="/login" className="pe-4">Login</Link>
+              <Link to="/register" className="pe-4">Register</Link>
+            </>          
+            }
+            
           </div>
-          :
-          <>
-            <Link to="/login" className="pe-4">Login</Link>
-            <Link to="/register" className="pe-4">Register</Link>
-          </>          
-          }
-          
         </div>
       </div>
-    </div>
-      
     </>
     
   )
