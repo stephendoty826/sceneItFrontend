@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('movies', {
+    await queryInterface.createTable('movies', { //? keeping this as movies since sequelize likes to pluralize things and watchlist turns into watchlists
       id: {
         allowNull: false,
         autoIncrement: true,

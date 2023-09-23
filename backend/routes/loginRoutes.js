@@ -8,9 +8,7 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login', 
   failureMessage: true 
 }), function(req, res) {
-
     let firstName = req.session.passport.user.firstName
-    console.log("firstName", firstName)
     res.redirect(`/${firstName}`)
   });
 
@@ -21,8 +19,6 @@ router.post("/register", async (req, res) => {
 
     // encrypt password
     password = bcrypt.hashSync(password, 8)
-
-    console.log("firstName", firstName, "email", email, "password", password)
 
     // save form info to db
     await db.users.create({

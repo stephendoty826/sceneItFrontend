@@ -43,15 +43,17 @@ const init = (passport) => {
     console.log('serializing user')
     done(null, {
       firstName: user.firstName,
-      email: user.email
+      email: user.email,
+      userID: user.id
     }) // second argument is what we want on the session
   })
 
   // check if user is valid
   // grabbing session data from user cookie and decoding cookie with secret and being passed data (id)
   passport.deserializeUser(async (sessionObj, done) => {
+    console.log('inside deserializeUser')
     try{
-
+      
       let foundUserInDBFromSessionData = await db.users.findByPk(sessionObj.id);
 
       if(foundUserInDBFromSessionData){
