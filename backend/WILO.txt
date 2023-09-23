@@ -1,4 +1,0 @@
-
-- When running routes on profileRoutes.js, req.session is empty. Googling it indicated this might be caused by deserializeUser() [on passportConfig.js] not being called to authenticate the user. 
-- OR IS the deserializeUser() function only for confirming a user is signed in?
-- CONDUCT further research into why the session would be just be { passport: {} } as if the user is not logged in
