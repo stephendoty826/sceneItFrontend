@@ -13,7 +13,7 @@ function App() {
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
 
-  const apiKey = "c308ac58";
+  const apiKey = process.env.REACT_APP_API_KEY
 
   const fetchMovieData = (urlEncodedSearchField) => {
     axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${urlEncodedSearchField}&page=1`)
