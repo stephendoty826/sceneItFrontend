@@ -6,11 +6,14 @@ const Sequelize = require("sequelize")
 const SequelizeStore = require("connect-session-sequelize")(session.Store)
 
 const passport = require('passport')
-require('./auth/passportConfig')(passport)
+
+// require('./auth/passportConfig')(passport) //todo delete
 
 const helmet = require('helmet')
 
 const port = 3050;
+
+
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -26,6 +29,8 @@ app.use(helmet());
 //body parser
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+
+
 
 /**
  * ----------------- SESSION SETUP -------------------
@@ -57,20 +62,42 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  store: sessionStore
+  store: sessionStore,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // equals 1 day
+  }
 }))
 
-// so sessionStore will create/sync the db table
+// sessionStore.sync() will create/sync the db table
 sessionStore.sync(); 
 
 
 
+/**
+ * -------------- PASSPORT AUTHENTICATION ----------------
+ */
 
-app.use(passport.initialize())
-app.use(passport.session())
+// Need to require the entire Passport config module so app.js knows about it
+require('./config/passport');
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+/**
+ * -------------- ROUTES ----------------
+ */
+
+// importing routes
 app.use(require('./routes/loginRoutes'))
 app.use(require('./routes/profileRoutes'))
+
+
+
+/**
+ * -------------- SERVER ----------------
+ */
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
