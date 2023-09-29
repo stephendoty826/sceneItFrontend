@@ -4,16 +4,12 @@ const passport = require('passport')
 const db = require("../models")
 const { genPassword } = require("../lib/passwordUtils")
 
-// router.post('/login', passport.authenticate('local', {
-//   failureRedirect: '/login', 
-//   failureMessage: true
-// }), function(req, res) {
-//     console.log("/login cb function")
-//     let firstName = req.session.passport.user.firstName
-//     res.redirect(`/${firstName}`)
-// });
-
-router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: `login-success`})); //todo can I put the req.session...for firstName here???
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login', 
+  failureMessage: true
+}), (req, res) => {
+    res.redirect(`/${req.user.firstName}`)
+});
 
 router.post("/register", async (req, res) => {
   try{
@@ -43,14 +39,16 @@ router.post("/register", async (req, res) => {
 })
 
 router.get("/logout", (req, res) => {
-  req.session = null
-  if(!req.session){
-    console.log("logout successful")
+  console.log("logout route")
+  
+  try{
+    req.logout(() => { // req.logoug() requires a callback function per passportjs...
+      console.log("logout successful")
+    });
     res.json('logout successful')
-  }
-  else{
+  }catch(err){
     console.log('logout failed')
-    res.json('logout failed')
+    res.json({msg: `logout failed: ${err}`})
   }
 })
 

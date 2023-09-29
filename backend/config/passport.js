@@ -12,17 +12,18 @@ const verifyCallback = (email, password, done) => {
     .then(user => {
       
       if (!user){ // if no user is found in db
-        console.log("passport.js:15 no user in db")
+        console.log("No user found in db")
         return done(null, false)
       }
 
       const isValid = validPassword(password, user.hash, user.salt);
 
-      if(isValid){ 
+      if(isValid){
+        console.log("Valid password")
         return done(null, user)
       }
       else{
-        console.log('not valid password')
+        console.log('Not valid password')
         return done(null, false)
       }
     })
