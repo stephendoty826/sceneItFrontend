@@ -18,7 +18,6 @@ function App() {
   const fetchMovieData = (urlEncodedSearchField) => {
     axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${urlEncodedSearchField}&page=1`)
     .then(response => {
-      console.log(response)
       if(response.data.Response === "True"){
         let responseMovieArray = response.data.Search.reduce((acc, movie) => {
           if(movie.Poster !== "N/A" && movie.Type !== "game"){ // filters out those objects that don't have posters and are games

@@ -12,7 +12,9 @@ const MovieCard = ({movie}) => {
       headers: {
         "Content-Type": "applications/json"
       }
-    });
+    })
+    .then(response => response.json())
+    .then(response => console.log(response));
   }
 
   return (

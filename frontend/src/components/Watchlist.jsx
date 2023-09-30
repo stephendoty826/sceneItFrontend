@@ -9,7 +9,6 @@ const Watchlist = () => {
   useEffect(() => {
     fetch("/watchlist")
     .then(response => {
-      console.log(response);
       return response.json()
     })
     .then(imdbIDArray => {
@@ -33,8 +32,6 @@ const Watchlist = () => {
     // set movieArray to tempMovieArray
     setMovieArray(tempMovieArray)
   }
-  
-  console.log(movieArray)
 
   return (
 
