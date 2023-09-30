@@ -14,7 +14,6 @@ const Watchlist = () => {
     .then(imdbIDArray => {
       // fetchWatchlistData function call and pass in response
       fetchWatchlistData(imdbIDArray)
-      console.log(imdbIDArray)
     })
   }, [])
 
@@ -33,11 +32,32 @@ const Watchlist = () => {
     setMovieArray(tempMovieArray)
   }
 
+  function handleDeleteClick(imdbID) {
+    fetch(`/watchlist/${imdbID}`,{
+      method: "DELETE",
+      headers: {
+        "Content-Type": "applications/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => console.log(response));
+
+    // deletes movie from frontend state
+    let tempMovieArray = movieArray.filter(movie => movie.imdbID !== imdbID)
+    setMovieArray(tempMovieArray)
+  }
+
+  const deleteBtnDetails = { 
+    onClick: handleDeleteClick,
+    variant: "danger",
+    text: "Delete"
+  }
+
   return (
 
     // map through movieArray and pass values to each MovieCard component
     <div className="container">
-      <CardList movieArray={movieArray}/>
+      <CardList btnDetails={deleteBtnDetails} movieArray={movieArray}/>
     </div>
   )
 }

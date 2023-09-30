@@ -39,6 +39,25 @@ function App() {
     Cookies.set("firstName", firstName, {expires: 14});
   }
 
+  // function to be passed down to MovieCard component
+  function handleAddToWatchlistClick(imdbID) {
+    fetch(`/watchlist/${imdbID}`,{
+      method: "POST",
+      headers: {
+        "Content-Type": "applications/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => console.log(response));
+  }
+
+  const AddBtnDetails = {
+    onClick: handleAddToWatchlistClick,
+    variant: "primary",
+    text: "Add To Watchlist"
+  }
+
+
   return (
     <>
       <div className="container">
@@ -49,7 +68,7 @@ function App() {
           </div>
         </div>
         <SearchBar searchField={searchField} setSearchField={setSearchField} fetchMovieData={fetchMovieData}/>
-        <CardList movieArray={movieArray}/>
+        <CardList btnDetails={AddBtnDetails} movieArray={movieArray}/>
       </div>
     </>
   );

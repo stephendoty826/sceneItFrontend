@@ -1,13 +1,13 @@
 import React from 'react'
 import MovieCard from './MovieCard'
 
-const CardList = ({movieArray}) => {
+const CardList = ({btnDetails, movieArray}) => {
   return (
     <div className="row">
       {/* map through array and return MovieCard components */}
       {movieArray.map((movie, i) => {
         // pass down props to MovieCard and display movie data
-        return <MovieCard key={i} movie={movie}/>
+        return <MovieCard btnDetails={btnDetails} key={i} movie={movie}/>
       })
       
       }
