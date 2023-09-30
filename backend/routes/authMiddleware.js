@@ -1,10 +1,9 @@
-// const isAuth = (req, res, next) => {
-//   console.log("isAuth middleware")
-//   if(req.isAuthenticated()){
-//     next();
-//   } else {
-//     res.redirect("/login");
-//   }
-// }
+const isAuth = (req, res, next) => {
+  if(req.isAuthenticated()){
+    next();
+  } else {
+    res.status(401).json({msg: "User not authenticated"});
+  }
+}
 
-// module.exports = isAuth
+module.exports = isAuth
