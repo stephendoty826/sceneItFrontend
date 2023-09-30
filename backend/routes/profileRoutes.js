@@ -15,9 +15,11 @@ router.post('/watchlist/:imdbID', async (req, res) => {
 
 // get route to get watchlist from database (make it a portected route that will send the user to the login page if they aren't logged in)
 
-// router.get("/watchlist", isAuth, (req, res) => {
-//   console.log('watchlist get route')
-//   res.json("hello world")
-// })
+router.get("/watchlist", isAuth, async (req, res) => {
+  console.log('watchlist get route')
+  let userID = req.user.dataValues.id
+  let watchlist = await db.movies.findAll({attributes: ["imdbID"], where: {userID}})
+  res.json(watchlist)
+})
 
 module.exports = router;
