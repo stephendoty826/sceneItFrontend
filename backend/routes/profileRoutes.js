@@ -6,11 +6,10 @@ const isAuth = require("./authMiddleware")
 // route to add imdbID to watchlist table
 router.post('/watchlist/:imdbID', async (req, res) => {
   const imdbID = req.params.imdbID;
-  console.log(req.session)
-  // db.movies.create({
-  //   userID,
-  //   imdbID
-  // })
+  db.movies.create({
+    userID: req.user.dataValues.id,
+    imdbID
+  })
   res.send("hello world");
 })
 

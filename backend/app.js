@@ -7,8 +7,6 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store)
 
 const passport = require('passport')
 
-// require('./auth/passportConfig')(passport) //todo delete
-
 const helmet = require('helmet')
 
 const port = 3050;
@@ -55,7 +53,6 @@ const sessionData = sequelize.define("sessionData", {
 const sessionStore = new SequelizeStore({
   db: sequelize,
   table: "sessionData",
-  //* I shouldn't have to extendDefaultFields since I am just using the default fields and not extending them
 })
 
 app.use(session({
