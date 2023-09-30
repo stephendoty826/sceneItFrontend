@@ -2,20 +2,9 @@
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({btnDetails, movie}) => {
 
-  const imdbID = movie.imdbID;
-
-  function handleAddToWatchlistClick() {
-    fetch(`/watchlist/${imdbID}`,{
-      method: "POST",
-      headers: {
-        "Content-Type": "applications/json"
-      }
-    })
-    .then(response => response.json())
-    .then(response => console.log(response));
-  }
+  const {variant, onClick, text} = btnDetails
 
   return (
     <>
@@ -25,7 +14,7 @@ const MovieCard = ({movie}) => {
           <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
-              <Button variant="primary" onClick={handleAddToWatchlistClick}>Add To Watchlist</Button>
+              <Button variant={variant} onClick={() => onClick(movie.imdbID)}>{text}</Button>
               <Button variant="secondary">Details</Button>
             </div>
           </Card.Body>
