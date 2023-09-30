@@ -13,7 +13,6 @@ const Register = () => {
 
   useEffect(() => {
     if(password !== null && confirmPassword !== null){
-      console.log('working')
       if(password === confirmPassword){
         setButtonDisabled(false)
         setShowAlert(false)

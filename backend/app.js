@@ -1,13 +1,26 @@
 const express = require('express');
-const helmet = require('helmet')
-const cookieSession = require('cookie-session')
-const bcrypt = require('bcryptjs')
+
+const session = require('express-session')
+const Sequelize = require("sequelize")
+// initialze sequelize with session store
+const SequelizeStore = require("connect-session-sequelize")(session.Store)
+
 const passport = require('passport')
-require('./auth/passportConfig')(passport)
-const db = require("./models")
+
+const helmet = require('helmet')
+
+const port = 3050;
+
+
+
+/**
+ * -------------- GENERAL SETUP ----------------
+ */
+
+// Gives us access to variables set in the .env file via `process.env.VARIABLE_NAME` syntax
+require('dotenv').config();
 
 const app = express();
-const port = 3050;
 
 app.use(helmet());
 
@@ -15,67 +28,74 @@ app.use(helmet());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.use(cookieSession({
-  name: 'session', 
-  keys: ['keyforCookie'],
-  maxAge: 14 * 24 * 60 * 60 * 1000 // 2 weeks
+
+
+/**
+ * ----------------- SESSION SETUP -------------------
+ */
+
+// create database
+const sequelize = new Sequelize("sceneItFullStack", "postgres", null, {
+  dialect: 'postgres',
+  host: '127.0.0.1'
+})
+
+// Define a model for your session table
+const sessionData = sequelize.define("sessionData", {
+  sid: {
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  data: Sequelize.TEXT,
+  expires: Sequelize.DATE,
+});
+
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+  table: "sessionData",
+})
+
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: sessionStore,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // equals 1 day
+  }
 }))
 
-app.use(passport.initialize())
-app.use(passport.session())
+// sessionStore.sync() will create/sync the db table
+sessionStore.sync(); 
 
 
 
-app.post('/login', passport.authenticate('local', {
-  failureRedirect: '/login', 
-  failureMessage: true 
-}), function(req, res) {
+/**
+ * -------------- PASSPORT AUTHENTICATION ----------------
+ */
 
-    let firstName = req.session.passport.user.firstName
-    console.log("firstName", firstName)
-    res.redirect(`/${firstName}`)
-  });
+// Need to require the entire Passport config module so app.js knows about it
+require('./config/passport');
 
-app.post("/register", async (req, res) => {
-  try{
+app.use(passport.initialize());
+app.use(passport.session());
 
-    let {firstName, email, password} = req.body
 
-    // encrypt password
-    password = bcrypt.hashSync(password, 8)
 
-    console.log("firstName", firstName, "email", email, "password", password)
+/**
+ * -------------- ROUTES ----------------
+ */
 
-    // save form info to db
-    await db.users.create({
-      firstName,
-      email,
-      password
-    })
+// importing routes
+app.use(require('./routes/loginRoutes'))
+app.use(require('./routes/profileRoutes'))
 
-    // on success, redirect user to login page
-    res.redirect('/login')
-  }
-  catch(error){
-    // on error, console.log error and send error to frontend
-    console.log('error: ', error)
-    res.status(500).json(error)
-  }
-  
-})
 
-app.get("/logout", (req, res) => {
-  req.session = null
-  if(!req.session){
-    console.log("logout successful")
-    res.json('logout successful')
-  }
-  else{
-    console.log('logout failed')
-    res.json('logout failed')
-  }
-})
 
-app.listen(port, ()=> {
+/**
+ * -------------- SERVER ----------------
+ */
+
+app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })

@@ -1,24 +1,4 @@
-WHERE I LEFT OFF - frontend
 
-Left off
-  - ****NOTE**** Make a branch for different features you are working on. Get use to doing the normal dev process of pushing to that branch on remote, doing a pull request, approving the pull request, and then pulling down updated to main and merging main into the current working branch. 
-
-TODO
-
-- Get search functionality working
-- 
-
-- Ensure email has @ in the email??? Better way to ensure the email is an actual email???
-- Have account page where you can update your email and change your password??? Other misc account things???
-
-
-
-
-
-WHERE I LEFT OFF - backend
-
-Left off...
-
-TODO???
-
-- Make it to where email can't be duplicated in database??? How to tell user that email is already in database???
+- When running routes on profileRoutes.js, req.session is empty. Googling it indicated this might be caused by deserializeUser() [on passportConfig.js] not being called to authenticate the user. 
+- OR IS the deserializeUser() function only for confirming a user is signed in?
+- CONDUCT further research into why the session would be just be { passport: {} } as if the user is not logged in

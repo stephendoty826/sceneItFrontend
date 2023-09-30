@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class movies extends Model {
+  class movies extends Model { //? keeping this as movies since sequelize likes to pluralize things and watchlist turns into watchlists
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
