@@ -49,8 +49,8 @@ const Watchlist = () => {
 
   const deleteBtnDetails = { 
     onClick: handleDeleteClick,
-    variant: "danger",
-    text: "Delete"
+    text: "Delete",
+    variant: "danger"
   }
 
   return (

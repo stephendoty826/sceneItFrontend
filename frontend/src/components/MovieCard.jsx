@@ -4,7 +4,17 @@ import Card from "react-bootstrap/Card"
 
 const MovieCard = ({btnDetails, movie}) => {
 
-  const {variant, onClick, text} = btnDetails
+  let { onClick, disabled, text, variant } = btnDetails;
+
+  if(movie.onWatchlist){
+    disabled = true
+    variant = "success";
+    text = "On Watchlist"
+  }
+
+  console.log(movie)
+  console.log(variant)
+  console.log(text)
 
   return (
     <>
@@ -14,7 +24,7 @@ const MovieCard = ({btnDetails, movie}) => {
           <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
-              <Button variant={variant} onClick={() => onClick(movie.imdbID)}>{text}</Button>
+              <Button variant={variant} onClick={() => onClick(movie.imdbID)} disabled={disabled}>{text}</Button>
               <Button variant="secondary">Details</Button>
             </div>
           </Card.Body>
