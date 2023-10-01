@@ -26,7 +26,7 @@ function App() {
   }
 
   useEffect(() => {
-    // fetch watchlist imdbIDs
+    // fetch watchlist imdbIDs so that array can be passed to isMovieOnWatchlist function
     fetch("/watchlist")
     .then(response => {
       return response.json()

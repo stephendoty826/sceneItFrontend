@@ -12,10 +12,8 @@ const MovieCard = ({btnDetails, movie}) => {
     text = "On Watchlist"
   }
 
-  console.log(movie)
-  console.log(variant)
-  console.log(text)
-
+  //todo write function that updates card text and disables button *** can you run two functions in onClick inline?
+  //? Modify handleAddToWatchlistClick function???
   return (
     <>
       <div className="col-lg-4 col-md-6 pt-4 d-flex justify-content-center">
