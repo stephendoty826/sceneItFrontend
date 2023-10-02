@@ -86,12 +86,10 @@ function App() {
   }
 
   const AddBtnDetails = {
-    onClick: {
-      type: "add",
-      action: handleAddToWatchlistClick
-    },
     disabled: false,
+    onClick: handleAddToWatchlistClick,
     text: "Add To Watchlist",
+    type: "add",
     variant: "primary"
   }
 

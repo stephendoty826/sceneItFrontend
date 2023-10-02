@@ -21,13 +21,13 @@ const MovieCard = ({btnDetails, movie}) => {
   }
 
   function handleClick(imdbID){
-    switch(btnDetails.onClick.type){
+    switch(btnDetails.type){
       case "add":
-        btnDetails.onClick.action(imdbID) // runs handleAddToWatchlist method
+        btnDetails.onClick(imdbID) // runs handleAddToWatchlist method
         updateToAdded()
         break
       case "delete":
-        btnDetails.onClick.action(imdbID)
+        btnDetails.onClick(imdbID)
         break
       default:
         console.log("Card button clicked")
