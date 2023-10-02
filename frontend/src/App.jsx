@@ -32,7 +32,6 @@ function App() {
       return response.json()
     })
     .then(imdbIDArray => {
-      console.log(imdbIDArray)
       setWatchlistIds(imdbIDArray)
     })
   }, [])
@@ -48,7 +47,6 @@ function App() {
           return acc
         }, [])
           let tempMovieArray = isMovieOnWatchlist(watchlistIds, responseMovieArray)
-          console.log("tempMovieArray", tempMovieArray)
           setMovieArray(tempMovieArray)
       }
     })
@@ -60,7 +58,6 @@ function App() {
    * @responseMovieArray array of movie objects resulting from search
    * */ 
   function isMovieOnWatchlist(watchlistIds, responseMovieArray) {
-    console.log(watchlistIds)
     let mappedMovieArray = responseMovieArray.map(movie => {
       let onWatchlistFlag = watchlistIds.find((imdbIDObj) => imdbIDObj.imdbID === movie.imdbID)
       if(onWatchlistFlag){
@@ -77,6 +74,7 @@ function App() {
 
   // function to be passed down to MovieCard component
   function handleAddToWatchlistClick(imdbID) {
+    console.log('handleAddToWatchlistClick')
     fetch(`/watchlist/${imdbID}`,{
       method: "POST",
       headers: {
@@ -88,7 +86,10 @@ function App() {
   }
 
   const AddBtnDetails = {
-    onClick: handleAddToWatchlistClick,
+    onClick: {
+      type: "add",
+      action: handleAddToWatchlistClick
+    },
     disabled: false,
     text: "Add To Watchlist",
     variant: "primary"

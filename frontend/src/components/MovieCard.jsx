@@ -1,19 +1,39 @@
-
-import Button from "react-bootstrap/Button"
-import Card from "react-bootstrap/Card"
+import { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 const MovieCard = ({btnDetails, movie}) => {
 
-  let { onClick, disabled, text, variant } = btnDetails;
+  const [disabledFlag, setDisabledFlag] = useState(btnDetails.disabled)
+  const [buttonText, setButtonText] = useState(btnDetails.text)
+  const [variant, setVariant] = useState(btnDetails.variant)
 
-  if(movie.onWatchlist){
-    disabled = true
-    variant = "success";
-    text = "On Watchlist"
+  useEffect(() => {
+    if(movie.onWatchlist){
+      updateToAdded()
+    }
+  }, [])
+
+  function updateToAdded(){
+    setDisabledFlag(true);
+    setVariant("success");
+    setButtonText("On Watchlist");
   }
 
-  //todo write function that updates card text and disables button *** can you run two functions in onClick inline?
-  //? Modify handleAddToWatchlistClick function???
+  function handleClick(imdbID){
+    switch(btnDetails.onClick.type){
+      case "add":
+        btnDetails.onClick.action(imdbID) // runs handleAddToWatchlist method
+        updateToAdded()
+        break
+      case "delete":
+        btnDetails.onClick.action(imdbID)
+        break
+      default:
+        console.log("Card button clicked")
+    }
+  }
+
   return (
     <>
       <div className="col-lg-4 col-md-6 pt-4 d-flex justify-content-center">
@@ -22,7 +42,7 @@ const MovieCard = ({btnDetails, movie}) => {
           <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
-              <Button variant={variant} onClick={() => onClick(movie.imdbID)} disabled={disabled}>{text}</Button>
+              <Button variant={variant} onClick={() => handleClick(movie.imdbID)} disabled={disabledFlag}>{buttonText}</Button>
               <Button variant="secondary">Details</Button>
             </div>
           </Card.Body>
