@@ -74,7 +74,11 @@ function App() {
 
   // function to be passed down to MovieCard component
   function handleAddToWatchlistClick(imdbID) {
-    console.log('handleAddToWatchlistClick')
+
+    // adds to local watchlist cache
+    setWatchlistIds([...watchlistIds, {imdbID}])
+
+    // fetch to add to db 
     fetch(`/watchlist/${imdbID}`,{
       method: "POST",
       headers: {

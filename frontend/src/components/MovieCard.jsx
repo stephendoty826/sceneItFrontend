@@ -9,12 +9,19 @@ const MovieCard = ({btnDetails, movie}) => {
   const [variant, setVariant] = useState(btnDetails.variant)
 
   useEffect(() => {
+    console.log("useEffect")
     if(movie.onWatchlist){
       updateToAdded()
     }
-  }, [])
+    else{
+      setDisabledFlag(btnDetails.disabled);
+      setVariant(btnDetails.variant);
+      setButtonText(btnDetails.text);
+    }
+  }, [movie])
 
   function updateToAdded(){
+    console.log('updateToAdded')
     setDisabledFlag(true);
     setVariant("success");
     setButtonText("On Watchlist");
