@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     // fetch watchlist imdbIDs so that array can be passed to isMovieOnWatchlist function
-    fetch("/watchlist")
+    fetch("/watchlist") //todo use thunk???
     .then(response => {
       return response.json()
     })
