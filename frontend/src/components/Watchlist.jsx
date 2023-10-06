@@ -33,6 +33,7 @@ const Watchlist = () => {
   }
 
   function handleDeleteClick(imdbID) {
+    // fetch to delete movie from database
     fetch(`/watchlist/${imdbID}`,{
       method: "DELETE",
       headers: {
@@ -49,15 +50,19 @@ const Watchlist = () => {
 
   const deleteBtnDetails = { 
     onClick: handleDeleteClick,
-    variant: "danger",
-    text: "Delete"
+    text: "Delete",
+    type: "delete",
+    variant: "danger"
   }
 
   return (
 
     // map through movieArray and pass values to each MovieCard component
     <div className="container">
-      <CardList btnDetails={deleteBtnDetails} movieArray={movieArray}/>
+      <div className="col-12 header text-center mb-3">
+        <h1 style={{color: "black"}}>My Watchlist</h1>
+        <CardList btnDetails={deleteBtnDetails} movieArray={movieArray}/>
+      </div>
     </div>
   )
 }

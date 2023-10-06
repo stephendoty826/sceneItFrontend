@@ -1,6 +1,6 @@
 
 import './App.css';
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import SearchBar from './components/SearchBar';
@@ -10,10 +10,31 @@ import axios from 'axios';
 
 function App() {
 
+  const [watchlistIds, setWatchlistIds] = useState([])
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
 
   const apiKey = process.env.REACT_APP_API_KEY
+
+  const firstName = useParams().firstName;
+
+  const firstNameInCookies = Cookies.get('firstName');
+
+  // sets firstName in cookies when user logs in 
+  if(!firstNameInCookies && firstName !== 'home'){
+    Cookies.set("firstName", firstName, {expires: 14});
+  }
+
+  useEffect(() => {
+    // fetch watchlist imdbIDs so that array can be passed to isMovieOnWatchlist function
+    fetch("/watchlist") //todo use thunk???
+    .then(response => {
+      return response.json()
+    })
+    .then(imdbIDArray => {
+      setWatchlistIds(imdbIDArray)
+    })
+  }, [])
 
   const fetchMovieData = (urlEncodedSearchField) => {
     axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${urlEncodedSearchField}&page=1`)
@@ -25,22 +46,39 @@ function App() {
           }
           return acc
         }, [])
-          setMovieArray(responseMovieArray)
+          let tempMovieArray = isMovieOnWatchlist(watchlistIds, responseMovieArray)
+          setMovieArray(tempMovieArray)
       }
     })
   }
 
-  const firstName = useParams().firstName;
-
-  const firstNameInCookies = Cookies.get('firstName');
-
-  // sets firstName in cookies when user logs in 
-  if(!firstNameInCookies && firstName !== 'home'){
-    Cookies.set("firstName", firstName, {expires: 14});
+  /**
+   *  function to see determine which movies in responseMovieArray are on the watchlist. If movie is on watchlist, set isOnWatchlist boolean on movie object to true, otherwise set it to false.
+   * @watchlistIds array imdbIDs on watchlist
+   * @responseMovieArray array of movie objects resulting from search
+   * */ 
+  function isMovieOnWatchlist(watchlistIds, responseMovieArray) {
+    let mappedMovieArray = responseMovieArray.map(movie => {
+      let onWatchlistFlag = watchlistIds.find((imdbIDObj) => imdbIDObj.imdbID === movie.imdbID)
+      if(onWatchlistFlag){
+        movie.onWatchlist = true
+        return movie
+      }else{
+        movie.onWatchlist = false
+        return movie
+      }
+      
+    })
+    return mappedMovieArray
   }
 
   // function to be passed down to MovieCard component
   function handleAddToWatchlistClick(imdbID) {
+
+    // adds to local watchlist cache
+    setWatchlistIds([...watchlistIds, {imdbID}])
+
+    // fetch to add to db 
     fetch(`/watchlist/${imdbID}`,{
       method: "POST",
       headers: {
@@ -52,9 +90,11 @@ function App() {
   }
 
   const AddBtnDetails = {
+    disabled: false,
     onClick: handleAddToWatchlistClick,
-    variant: "primary",
-    text: "Add To Watchlist"
+    text: "Add To Watchlist",
+    type: "add",
+    variant: "primary"
   }
 
 

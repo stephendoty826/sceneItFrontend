@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import MovieCard from './MovieCard'
 
 const CardList = ({btnDetails, movieArray}) => {
+  
   return (
     <div className="row">
       {/* map through array and return MovieCard components */}
