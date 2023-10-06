@@ -9,12 +9,8 @@ const MovieCard = ({ btnDetails, movie }) => {
 
   useEffect(() => {
     if (movie.onWatchlist) {
-      console.log(movie);
-      console.log("if");
       updateToAdded();
     } else {
-      console.log(movie);
-      console.log("else");
       setDisabledFlag(btnDetails.disabled);
       setVariant(btnDetails.variant);
       setButtonText(btnDetails.text);
