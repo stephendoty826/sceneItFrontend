@@ -1,18 +1,29 @@
-import React, {useEffect} from 'react'
-import MovieCard from './MovieCard'
+import React from "react";
+import MovieCard from "./MovieCard";
 
-const CardList = ({btnDetails, movieArray}) => {
-  
+const CardList = ({ btnDetails, movieArray, updateFlag }) => {
   return (
     <div className="row">
-      {/* map through array and return MovieCard components */}
       {movieArray.map((movie, i) => {
-        // pass down props to MovieCard and display movie data
-        return <MovieCard btnDetails={btnDetails} key={i} movie={movie}/>
-      })
-      
-      }
-      
+        if (i > 2) {
+          //todo remove to display all movies on page
+          return;
+        }
+        return (
+          <MovieCard
+            disabled={movie.onWatchlist}
+            onClick={btnDetails.onClick}
+            key={i}
+            movie={movie}
+            role={btnDetails.role}
+            text={btnDetails.text}
+            type={btnDetails.type}
+            updateFlag={updateFlag}
+            variant={btnDetails.variant}
+          />
+        );
+      })}
+
       {/* {movieArray.length > 0 //todo add button to load more movies from current searchField???
       ?
       <div className="container d-flex justify-content-center">
@@ -22,7 +33,7 @@ const CardList = ({btnDetails, movieArray}) => {
       <h1>if false</h1>
       } */}
     </div>
-  )
-}
+  );
+};
 
-export default CardList
+export default CardList;

@@ -26,7 +26,7 @@ const Header = () => {
       <div className="container">
         <div className="row">
           <div className="col-12 header text-center mb-2">
-            <Link to="/home" style={{textDecoration: "none"}}><h2 className="display-2">Scene It</h2></Link>
+            <Link to={firstName ? `/${firstName}` : "/home"} style={{textDecoration: "none"}}><h2 className="display-2">Scene It</h2></Link>
             {firstName 
             ?
             // displayed when user is logged in

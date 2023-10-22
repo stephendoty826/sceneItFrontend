@@ -1,41 +1,48 @@
 import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
+import { Button } from "./subcomponents/Button.jsx";
 import Card from "react-bootstrap/Card";
 
-const MovieCard = ({ btnDetails, movie }) => {
-  const [disabledFlag, setDisabledFlag] = useState(btnDetails.disabled);
-  const [buttonText, setButtonText] = useState(btnDetails.text);
-  const [variant, setVariant] = useState(btnDetails.variant);
+const MovieCard = ({
+  disabled,
+  onClick,
+  movie,
+  role,
+  text,
+  type,
+  updateFlag,
+  variant,
+}) => {
 
-  useEffect(() => {
-    if (movie.onWatchlist) {
-      updateToAdded();
-    } else {
-      setDisabledFlag(btnDetails.disabled);
-      setVariant(btnDetails.variant);
-      setButtonText(btnDetails.text);
-    }
-  }, [movie]);
+  // useEffect(() => {
+  //   if (movie.onWatchlist) {
+  //     console.log("movie", movie);
+  //     updateToAdded();
+  //   } else {
+  //     setDisabledFlag(disabled);
+  //     setButtonVariant(variant);
+  //     setButtonText(text);
+  //   }
+  // }, [updateFlag]);
 
-  function updateToAdded() {
-    setDisabledFlag(true);
-    setVariant("success");
-    setButtonText("On Watchlist");
-  }
+  // function updateToAdded() {
+  //   setDisabledFlag(true);
+  //   setButtonVariant("success");
+  //   setButtonText("On Watchlist");
+  // }
 
-  function handleClick(imdbID) {
-    switch (btnDetails.type) {
-      case "add":
-        btnDetails.onClick(imdbID); // runs handleAddToWatchlistClick method
-        updateToAdded();
-        break;
-      case "delete":
-        btnDetails.onClick(imdbID); // runs handleDeleteClick method
-        break;
-      default:
-        console.log("Card button clicked");
-    }
-  }
+  // function handleClick(imdbID) {
+  //   switch (btnDetails.role) {
+  //     case "add":
+  //       btnDetails.onClick(imdbID); // runs handleAddToWatchlistClick method
+  //       updateToAdded();
+  //       break;
+  //     case "delete":
+  //       btnDetails.onClick(imdbID); // runs handleDeleteClick method
+  //       break;
+  //     default:
+  //       console.log("Card button clicked");
+  //   }
+  // }
 
   return (
     <>
@@ -45,14 +52,19 @@ const MovieCard = ({ btnDetails, movie }) => {
           <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
+              {/* Primary Button */}
               <Button
+                disabled={disabled}
+                imdbID={movie.imdbID}
+                onClick={onClick}
+                onWatchlist={movie.onWatchlist}
+                role={role}
+                text={text}
+                type={type}
+                updateFlag={updateFlag}
                 variant={variant}
-                onClick={() => handleClick(movie.imdbID)}
-                disabled={disabledFlag}
-              >
-                {buttonText}
-              </Button>
-              <Button variant="secondary">Details</Button>
+              />
+              {/* <Button variant="secondary">Details</Button> */}
             </div>
           </Card.Body>
         </Card>

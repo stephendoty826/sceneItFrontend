@@ -5,13 +5,13 @@ import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import SearchBar from './components/SearchBar';
 import CardList from './components/CardList'
-import Button from "react-bootstrap/Button"
 import axios from 'axios';
 
 function App() {
   const [watchlistIds, setWatchlistIds] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
+  const [updateFlag, setUpdateFlag] = useState(true)
 
   const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -19,17 +19,14 @@ function App() {
 
   const firstNameInCookies = Cookies.get("firstName");
 
-  // checks whether or not user is logged in
-  const userLoggedIn = !firstNameInCookies && firstName !== "home";
-
   // sets firstName in cookies when user logs in
-  if (userLoggedIn) {
+  if (!firstNameInCookies && firstName !== "home") {
     Cookies.set("firstName", firstName, { expires: 14 });
   }
 
   useEffect(() => {
     // fetch watchlist imdbIDs so that array can be passed to isMovieOnWatchlist function
-    if (userLoggedIn) {
+    if (firstNameInCookies) {
       fetch("/watchlist") //todo use thunk???
         .then((response) => {
           return response.json();
@@ -39,6 +36,8 @@ function App() {
         });
     }
   }, []);
+
+  console.log(watchlistIds)
 
   const fetchMovieData = (urlEncodedSearchField) => {
     axios
@@ -88,6 +87,7 @@ function App() {
   function handleAddToWatchlistClick(imdbID) {
     // adds to local watchlist cache
     setWatchlistIds([...watchlistIds, { imdbID }]);
+    setUpdateFlag(!updateFlag)
 
     // fetch to add to db
     fetch(`/watchlist/${imdbID}`, {
@@ -100,11 +100,11 @@ function App() {
       .then((response) => console.log(response));
   }
 
-  const AddBtnDetails = {
-    disabled: false,
+  const addBtnDetails = {
     onClick: handleAddToWatchlistClick,
+    role: "add",
     text: "Add To Watchlist",
-    type: "add",
+    type: "button",
     variant: "primary",
   };
 
@@ -126,7 +126,11 @@ function App() {
           setSearchField={setSearchField}
           fetchMovieData={fetchMovieData}
         />
-        <CardList btnDetails={AddBtnDetails} movieArray={movieArray} />
+        <CardList
+          btnDetails={addBtnDetails}
+          movieArray={movieArray}
+          updateFlag={updateFlag}
+        />
       </div>
     </>
   );

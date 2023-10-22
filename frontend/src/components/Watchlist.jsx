@@ -48,16 +48,15 @@ const Watchlist = () => {
     setMovieArray(tempMovieArray)
   }
 
-  const deleteBtnDetails = { 
+  const deleteBtnDetails = {
     onClick: handleDeleteClick,
+    role: "delete",
     text: "Delete",
-    type: "delete",
-    variant: "danger"
-  }
+    type: "button",
+    variant: "danger",
+  };
 
   return (
-
-    // map through movieArray and pass values to each MovieCard component
     <div className="container">
       <div className="col-12 header text-center mb-3">
         <h1 style={{color: "black"}}>My Watchlist</h1>
