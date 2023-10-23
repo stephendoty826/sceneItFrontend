@@ -1,7 +1,7 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 
-const CardList = ({ btnDetails, movieArray, updateFlag }) => {
+const CardList = ({ btnDetails, movieArray }) => {
   return (
     <div className="row">
       {movieArray.map((movie, i) => {
@@ -18,7 +18,6 @@ const CardList = ({ btnDetails, movieArray, updateFlag }) => {
             role={btnDetails.role}
             text={btnDetails.text}
             type={btnDetails.type}
-            updateFlag={updateFlag}
             variant={btnDetails.variant}
           />
         );

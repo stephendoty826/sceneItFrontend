@@ -11,7 +11,6 @@ function App() {
   const [watchlistIds, setWatchlistIds] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
-  const [updateFlag, setUpdateFlag] = useState(true)
 
   const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -127,7 +126,6 @@ function App() {
         <CardList
           btnDetails={addBtnDetails}
           movieArray={movieArray}
-          updateFlag={updateFlag}
         />
       </div>
     </>

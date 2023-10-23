@@ -9,40 +9,8 @@ const MovieCard = ({
   role,
   text,
   type,
-  updateFlag,
   variant,
 }) => {
-
-  // useEffect(() => {
-  //   if (movie.onWatchlist) {
-  //     console.log("movie", movie);
-  //     updateToAdded();
-  //   } else {
-  //     setDisabledFlag(disabled);
-  //     setButtonVariant(variant);
-  //     setButtonText(text);
-  //   }
-  // }, [updateFlag]);
-
-  // function updateToAdded() {
-  //   setDisabledFlag(true);
-  //   setButtonVariant("success");
-  //   setButtonText("On Watchlist");
-  // }
-
-  // function handleClick(imdbID) {
-  //   switch (btnDetails.role) {
-  //     case "add":
-  //       btnDetails.onClick(imdbID); // runs handleAddToWatchlistClick method
-  //       updateToAdded();
-  //       break;
-  //     case "delete":
-  //       btnDetails.onClick(imdbID); // runs handleDeleteClick method
-  //       break;
-  //     default:
-  //       console.log("Card button clicked");
-  //   }
-  // }
 
   return (
     <>
@@ -62,7 +30,6 @@ const MovieCard = ({
                 role={role}
                 text={text}
                 type={type}
-                updateFlag={updateFlag}
                 variant={variant}
               />
               {/* <Button variant="secondary">Details</Button> */}
