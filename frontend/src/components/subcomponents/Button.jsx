@@ -4,12 +4,12 @@ import { Button as ReactButton } from "react-bootstrap";
 export const Button = ({
   disabled,
   imdbID,
+  movie,
   onClick,
   onWatchlist,
   role,
   text,
   type,
-  updateFlag,
   variant,
 }) => {
   const [disabledFlag, setDisabledFlag] = useState(disabled);
@@ -19,22 +19,12 @@ export const Button = ({
   useEffect(() => {
     if (role === "add" && onWatchlist) {
       updateToAdded();
+    } else {
+      setDisabledFlag(disabled);
+      setBtnVariant(variant);
+      setBtnText(text);
     }
-  }, [updateFlag]);
-
-  // useEffect(() => {
-  //   if (movie.onWatchlist) {
-  //     console.log("movie", movie);
-  //     updateToAdded();
-  //   } else {
-  //     setDisabledFlag(disabled);
-  //     setButtonVariant(variant);
-  //     setButtonText(text);
-  //   }
-  // }, [updateFlag]);
-
-  //todo button is "remembering state" so searching another movie shows "On Watchlist" in the same spots
-  //??? can I break the button into different ones? AddButton is the only one with unique logic in it. The others just do an onClick and have text and color. 
+  }, [movie]);
 
   function handleOnClick() {
     if (role === "add") {

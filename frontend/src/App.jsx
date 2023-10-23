@@ -37,8 +37,6 @@ function App() {
     }
   }, []);
 
-  console.log(watchlistIds)
-
   const fetchMovieData = (urlEncodedSearchField) => {
     axios
       .get(

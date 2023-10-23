@@ -56,6 +56,7 @@ const MovieCard = ({
               <Button
                 disabled={disabled}
                 imdbID={movie.imdbID}
+                movie={movie}
                 onClick={onClick}
                 onWatchlist={movie.onWatchlist}
                 role={role}
