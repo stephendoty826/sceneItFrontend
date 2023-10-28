@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "./subcomponents/Button.jsx";
 import Card from "react-bootstrap/Card";
+import { DetailsModal } from "./DetailsModal.jsx";
 
-const MovieCard = ({
-  disabled,
-  onClick,
-  movie,
-  role,
-  text,
-  type,
-  variant,
-}) => {
+const MovieCard = ({ disabled, onClick, movie, role, text, type, variant }) => {
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
@@ -32,7 +26,16 @@ const MovieCard = ({
                 type={type}
                 variant={variant}
               />
-              {/* <Button variant="secondary">Details</Button> */}
+              <Button
+                variant="secondary"
+                onClick={() => setShowModal(true)}
+                text="Details"
+              />
+              <DetailsModal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                movie={movie}
+              />
             </div>
           </Card.Body>
         </Card>

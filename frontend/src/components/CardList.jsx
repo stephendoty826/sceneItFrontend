@@ -5,10 +5,6 @@ const CardList = ({ btnDetails, movieArray }) => {
   return (
     <div className="row">
       {movieArray.map((movie, i) => {
-        if (i > 2) {
-          //todo remove to display all movies on page
-          return;
-        }
         return (
           <MovieCard
             disabled={movie.onWatchlist}

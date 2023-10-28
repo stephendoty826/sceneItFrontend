@@ -84,7 +84,6 @@ function App() {
   function handleAddToWatchlistClick(imdbID) {
     // adds to local watchlist cache
     setWatchlistIds([...watchlistIds, { imdbID }]);
-    setUpdateFlag(!updateFlag)
 
     // fetch to add to db
     fetch(`/watchlist/${imdbID}`, {
