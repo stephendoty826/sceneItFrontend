@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { Button } from "./subcomponents/Button.jsx";
+import { Button, AddButton, DeleteButton } from "./subcomponents/Button.jsx";
 import Card from "react-bootstrap/Card";
 import { DetailsModal } from "./DetailsModal.jsx";
 
-const MovieCard = ({ disabled, onClick, movie, role, text, type, variant }) => {
+const MovieCard = ({
+  btnDisabled,
+  btnOnClick,
+  movie,
+  btnRole,
+  btnText,
+  btnType,
+  btnVariant,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -15,27 +23,39 @@ const MovieCard = ({ disabled, onClick, movie, role, text, type, variant }) => {
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
               {/* Primary Button */}
+              {btnRole === "add" ? (
+                <AddButton
+                  disabled={btnDisabled}
+                  movie={movie}
+                  addToWatchlist={btnOnClick}
+                  onWatchlist={movie.onWatchlist}
+                  text={btnText}
+                  type={btnType}
+                  variant={btnVariant}
+                />
+              ) : (
+                <DeleteButton
+                  disabled={btnDisabled}
+                  movie={movie}
+                  onClick={btnOnClick}
+                  text={btnText}
+                  type={btnType}
+                />
+              )}
               <Button
-                disabled={disabled}
-                imdbID={movie.imdbID}
-                movie={movie}
-                onClick={onClick}
-                onWatchlist={movie.onWatchlist}
-                role={role}
-                text={text}
-                type={type}
-                variant={variant}
-              />
-              <Button
-                variant="secondary"
                 onClick={() => setShowModal(true)}
                 text="Details"
+                variant="secondary"
               />
-              {showModal ? <DetailsModal
-                setShowModal={setShowModal}
-                movie={movie}
-                imdbID={movie.imdbID}
-              /> : ""}
+              {showModal ? (
+                <DetailsModal
+                  btnRole={btnRole}
+                  movie={movie}
+                  setShowModal={setShowModal}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </Card.Body>
         </Card>

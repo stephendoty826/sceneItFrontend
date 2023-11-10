@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Button as ReactButton } from "react-bootstrap";
 
-export const Button = ({ //todo currently this Button component is still fairly specific (imdbID, movie, onWatchlist are all specific to movie card functionality)
+export const Button = ({ disabled, onClick, text, type, variant }) => {
+  return (
+    <ReactButton
+      disabled={disabled}
+      onClick={onClick}
+      type={type}
+      variant={variant}
+    >
+      {text}
+    </ReactButton>
+  );
+};
+
+export const AddButton = ({
   disabled,
-  imdbID,
   movie,
-  onClick,
+  addToWatchlist,
   onWatchlist,
-  role,
   text,
   type,
   variant,
@@ -17,7 +28,7 @@ export const Button = ({ //todo currently this Button component is still fairly 
   const [btnVariant, setBtnVariant] = useState(variant);
 
   useEffect(() => {
-    if (role === "add" && onWatchlist) {
+    if (onWatchlist) {
       updateToAdded();
     } else {
       setDisabledFlag(disabled);
@@ -27,12 +38,8 @@ export const Button = ({ //todo currently this Button component is still fairly 
   }, [movie]);
 
   function handleOnClick() {
-    if (role === "add") {
-      updateToAdded();
-    }
-    if (onClick) {
-      onClick(imdbID);
-    }
+    updateToAdded();
+    addToWatchlist(movie.imdbID);
   }
 
   function updateToAdded() {
@@ -47,6 +54,27 @@ export const Button = ({ //todo currently this Button component is still fairly 
       onClick={handleOnClick}
       type={type}
       variant={btnVariant}
+    >
+      {btnText}
+    </ReactButton>
+  );
+};
+
+export const DeleteButton = ({ disabled, movie, handleDeleteClick, text, type }) => {
+  const [disabledFlag, setDisabledFlag] = useState(disabled);
+  const [btnText, setBtnText] = useState(text);
+
+  useEffect(() => {
+    setDisabledFlag(disabled);
+    setBtnText(text);
+  }, [movie]);
+
+  return (
+    <ReactButton
+      disabled={disabledFlag}
+      onClick={() => handleDeleteClick(movie.imdbID)}
+      type={type}
+      variant="danger"
     >
       {btnText}
     </ReactButton>

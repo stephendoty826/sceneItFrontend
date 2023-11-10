@@ -7,14 +7,14 @@ const CardList = ({ btnDetails, movieArray }) => {
       {movieArray.map((movie, i) => {
         return (
           <MovieCard
-            disabled={movie.onWatchlist}
-            onClick={btnDetails.onClick}
+            btnDisabled={movie.onWatchlist}
+            btnOnClick={btnDetails.onClick}
             key={i}
             movie={movie}
-            role={btnDetails.role}
-            text={btnDetails.text}
-            type={btnDetails.type}
-            variant={btnDetails.variant}
+            btnRole={btnDetails.role}
+            btnText={btnDetails.text}
+            btnType={btnDetails.type}
+            btnVariant={btnDetails.variant}
           />
         );
       })}

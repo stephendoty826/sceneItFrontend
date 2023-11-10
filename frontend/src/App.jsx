@@ -81,7 +81,7 @@ function App() {
   }
 
   // function to be passed down to MovieCard component
-  function handleAddToWatchlistClick(imdbID) {
+  function addToWatchlist(imdbID) {
     // adds to local watchlist cache
     setWatchlistIds([...watchlistIds, { imdbID }]);
 
@@ -97,7 +97,7 @@ function App() {
   }
 
   const addBtnDetails = {
-    onClick: handleAddToWatchlistClick,
+    onClick: addToWatchlist,
     role: "add",
     text: "Add To Watchlist",
     type: "button",
