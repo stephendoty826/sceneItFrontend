@@ -31,11 +31,11 @@ const MovieCard = ({ disabled, onClick, movie, role, text, type, variant }) => {
                 onClick={() => setShowModal(true)}
                 text="Details"
               />
-              <DetailsModal
-                show={showModal}
-                onHide={() => setShowModal(false)}
+              {showModal ? <DetailsModal
+                setShowModal={setShowModal}
                 movie={movie}
-              />
+                imdbID={movie.imdbID}
+              /> : ""}
             </div>
           </Card.Body>
         </Card>

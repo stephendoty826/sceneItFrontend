@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button as ReactButton } from "react-bootstrap";
 
-export const Button = ({
+export const Button = ({ //todo currently this Button component is still fairly specific (imdbID, movie, onWatchlist are all specific to movie card functionality)
   disabled,
   imdbID,
   movie,

@@ -11,7 +11,7 @@ router.get("/watchlist", isAuth, async (req, res) => {
 })
 
 // post route to add imdbID to movies table
-router.post('/watchlist/:imdbID', async (req, res) => {
+router.post('/watchlist/:imdbID', async (req, res) => { //todo add isAuth to other routes? this route?
   try{
     const imdbID = req.params.imdbID;
     db.movies.create({
@@ -25,7 +25,7 @@ router.post('/watchlist/:imdbID', async (req, res) => {
 })
 
 // delete route to delete movie from movies table
-router.delete("/watchlist/:imdbID", async (req, res) => {
+router.delete("/watchlist/:imdbID", async (req, res) => { //todo add isAuth middleware?
   try{
     let imdbID = req.params.imdbID;
     await db.movies.destroy({where: {imdbID, userID: req.user.dataValues.id}})
