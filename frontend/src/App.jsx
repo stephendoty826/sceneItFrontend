@@ -99,9 +99,7 @@ function App() {
   const addBtnDetails = {
     onClick: addToWatchlist,
     role: "add",
-    text: "Add To Watchlist",
     type: "button",
-    variant: "primary",
   };
 
   return (

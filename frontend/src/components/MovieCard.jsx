@@ -5,9 +5,13 @@ import { DetailsModal } from "./DetailsModal.jsx";
 import { addOrDeleteButton } from "../util.js";
 
 const MovieCard = ({ btnDetails, movie }) => {
-  const [showModal, setShowModal] = useState(false);
 
-  //todo NOTE: Currently when adding a movie from the details modal, the button updates on the modal but not on the card.
+  const [showModal, setShowModal] = useState(false);
+  const [addBtnState, setAddBtnState] = useState({
+    disabled: movie.onWatchlist,
+    text: movie.onWatchlist ? "On Watchlist" : "Add To Watchlist",
+    variant: movie.onWatchlist ? "success" : "primary",
+  });
 
   return (
     <>
@@ -17,7 +21,12 @@ const MovieCard = ({ btnDetails, movie }) => {
           <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
-              {addOrDeleteButton(btnDetails, movie)}
+              {addOrDeleteButton(
+                btnDetails,
+                movie,
+                addBtnState,
+                setAddBtnState
+              )}
               <Button
                 onClick={() => setShowModal(true)}
                 text="Details"
@@ -28,6 +37,8 @@ const MovieCard = ({ btnDetails, movie }) => {
               {showModal ? (
                 <DetailsModal
                   btnDetails={btnDetails}
+                  addBtnState={addBtnState}
+                  setAddBtnState={setAddBtnState}
                   movie={movie}
                   setShowModal={setShowModal}
                 />

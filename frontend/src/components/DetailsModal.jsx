@@ -4,7 +4,13 @@ import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import { addOrDeleteButton } from "../util.js";
 
-export const DetailsModal = ({ btnDetails, movie, setShowModal }) => {
+export const DetailsModal = ({
+  btnDetails,
+  addBtnState,
+  setAddBtnState,
+  movie,
+  setShowModal,
+}) => {
   const [movieDetails, setMovieDetails] = useState(movie);
 
   useEffect(() => {
@@ -12,6 +18,7 @@ export const DetailsModal = ({ btnDetails, movie, setShowModal }) => {
       .then((res) => res.json())
       .then((data) => {
         setMovieDetails(data);
+        console.log(data)
       });
   }, []);
 
@@ -58,8 +65,16 @@ export const DetailsModal = ({ btnDetails, movie, setShowModal }) => {
         </Card.Body>
       </Modal.Body>
       <Modal.Footer>
-        {addOrDeleteButton(btnDetails, movie)}
-        <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
+        {addOrDeleteButton(
+          btnDetails,
+          movie,
+          addBtnState,
+          setAddBtnState,
+          setShowModal
+        )}
+        <Button variant="secondary" onClick={() => setShowModal(false)}>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );

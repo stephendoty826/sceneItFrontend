@@ -52,7 +52,6 @@ const Watchlist = () => {
     onClick: handleDeleteClick,
     role: "delete",
     type: "button",
-    variant: "danger",
   };
 
   return (

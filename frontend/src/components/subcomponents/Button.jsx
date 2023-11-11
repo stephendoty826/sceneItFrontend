@@ -15,60 +15,53 @@ export const Button = (props) => {
 };
 
 export const AddButton = ({
-  disabled,
+  addBtnState,
+  setAddBtnState,
   imdbID,
   addToWatchlist,
-  onWatchlist,
-  text,
-  type,
-  variant,
+  type
 }) => {
 
-  console.log(imdbID);
-  const [disabledFlag, setDisabledFlag] = useState(disabled);
-  const [btnText, setBtnText] = useState(text);
-  const [btnVariant, setBtnVariant] = useState(variant);
-
-  useEffect(() => {
-    if (onWatchlist) {
-      updateToAdded();
-    } else {
-      setDisabledFlag(disabled);
-      setBtnVariant(variant);
-      setBtnText(text);
-    }
-  }, [imdbID]);
+  // useEffect(() => {
+  //   if (onWatchlist) {
+  //     updateToAdded();
+  //   } else {
+  //     setBtnDisabledFlag(disabled);
+  //     setBtnVariant(variant);
+  //     setBtnText(text);
+  //   }
+  // }, [imdbID]);
 
   function handleOnClick() {
-    updateToAdded();
+    setAddBtnState({
+      disabled: true,
+      text: "On Watchlist",
+      variant: "success"
+    });
     addToWatchlist(imdbID);
-  }
-
-  function updateToAdded() {
-    setDisabledFlag(true);
-    setBtnText("On Watchlist");
-    setBtnVariant("success");
   }
 
   return (
     <ReactButton
-      disabled={disabledFlag}
+      disabled={addBtnState.disabled}
       onClick={handleOnClick}
       type={type}
-      variant={btnVariant}
+      variant={addBtnState.variant}
     >
-      {btnText}
+      {addBtnState.text}
     </ReactButton>
   );
 };
 
-export const DeleteButton = ({ handleDeleteClick, imdbID, type }) => {
+export const DeleteButton = ({ handleDeleteClick, imdbID, type, setShowModal }) => {
+
+  function handleClick() {
+    handleDeleteClick(imdbID)
+    setShowModal && setShowModal(false)
+  }
+
   return (
-    <ReactButton
-      onClick={() => handleDeleteClick(imdbID)}
-      type={type}
-      variant="danger"
-    >
+    <ReactButton onClick={handleClick} type={type} variant="danger">
       Remove
     </ReactButton>
   );
