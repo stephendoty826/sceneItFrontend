@@ -1,18 +1,13 @@
 import { useState } from "react";
-import { Button, AddButton, DeleteButton } from "./subcomponents/Button.jsx";
+import { Button } from "./subcomponents/Button.jsx";
 import Card from "react-bootstrap/Card";
 import { DetailsModal } from "./DetailsModal.jsx";
+import { addOrDeleteButton } from "../util.js";
 
-const MovieCard = ({
-  btnDisabled,
-  btnOnClick,
-  movie,
-  btnRole,
-  btnText,
-  btnType,
-  btnVariant,
-}) => {
+const MovieCard = ({ btnDetails, movie }) => {
   const [showModal, setShowModal] = useState(false);
+
+  //todo NOTE: Currently when adding a movie from the details modal, the button updates on the modal but not on the card.
 
   return (
     <>
@@ -22,34 +17,17 @@ const MovieCard = ({
           <Card.Body className="d-flex flex-column justify-content-center">
             <Card.Title>{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
-              {/* Primary Button */}
-              {btnRole === "add" ? (
-                <AddButton
-                  disabled={btnDisabled}
-                  movie={movie}
-                  addToWatchlist={btnOnClick}
-                  onWatchlist={movie.onWatchlist}
-                  text={btnText}
-                  type={btnType}
-                  variant={btnVariant}
-                />
-              ) : (
-                <DeleteButton
-                  disabled={btnDisabled}
-                  movie={movie}
-                  onClick={btnOnClick}
-                  text={btnText}
-                  type={btnType}
-                />
-              )}
+              {addOrDeleteButton(btnDetails, movie)}
               <Button
                 onClick={() => setShowModal(true)}
                 text="Details"
                 variant="secondary"
-              />
+              >
+                Details
+              </Button>
               {showModal ? (
                 <DetailsModal
-                  btnRole={btnRole}
+                  btnDetails={btnDetails}
                   movie={movie}
                   setShowModal={setShowModal}
                 />

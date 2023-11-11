@@ -37,7 +37,9 @@ const SearchBar = ({ searchField, setSearchField, fetchMovieData }) => {
               id="search-bar"
               placeholder="Search for a movie or series..."
             />
-            <Button text="Search" type="submit" variant="primary" />
+            <Button type="submit" variant="primary">
+              Search
+            </Button>
           </Form.Group>
         </Form>
       </div>

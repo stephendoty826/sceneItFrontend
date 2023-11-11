@@ -5,18 +5,7 @@ const CardList = ({ btnDetails, movieArray }) => {
   return (
     <div className="row">
       {movieArray.map((movie, i) => {
-        return (
-          <MovieCard
-            btnDisabled={movie.onWatchlist}
-            btnOnClick={btnDetails.onClick}
-            key={i}
-            movie={movie}
-            btnRole={btnDetails.role}
-            btnText={btnDetails.text}
-            btnType={btnDetails.type}
-            btnVariant={btnDetails.variant}
-          />
-        );
+        return <MovieCard btnDetails={btnDetails} key={i} movie={movie} />;
       })}
 
       {/* {movieArray.length > 0 //todo add button to load more movies from current searchField???

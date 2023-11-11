@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
+import { Button } from "./subcomponents/Button.jsx";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
+import { addOrDeleteButton } from "../util.js";
 
-export const DetailsModal = ({ btnRole, movie, setShowModal }) => {
+export const DetailsModal = ({ btnDetails, movie, setShowModal }) => {
   const [movieDetails, setMovieDetails] = useState(movie);
 
-  console.log(movieDetails, movie)
-
   useEffect(() => {
-    fetchMovieDetails(movieDetails.imdbID);
-    console.log("movie details fetched");
-  }, []);
-
-  function fetchMovieDetails(imdbID) {
-    fetch(`http://www.omdbapi.com/?apikey=c308ac58&i=${imdbID}&plot=full`)
+    fetch(`http://www.omdbapi.com/?apikey=c308ac58&i=${movie.imdbID}&plot=full`)
       .then((res) => res.json())
       .then((data) => {
         setMovieDetails(data);
       });
-  }
+  }, []);
 
   return (
     <Modal
@@ -64,8 +58,8 @@ export const DetailsModal = ({ btnRole, movie, setShowModal }) => {
         </Card.Body>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => setShowModal(false)}>Close</Button>
-        <Button onClick={() => setShowModal(false)}>Close</Button>
+        {addOrDeleteButton(btnDetails, movie)}
+        <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
       </Modal.Footer>
     </Modal>
   );

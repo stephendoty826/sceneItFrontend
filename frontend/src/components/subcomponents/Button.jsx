@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Button as ReactButton } from "react-bootstrap";
 
-export const Button = ({ disabled, onClick, text, type, variant }) => {
+export const Button = (props) => {
   return (
     <ReactButton
-      disabled={disabled}
-      onClick={onClick}
-      type={type}
-      variant={variant}
+      disabled={props.disabled}
+      onClick={props.onClick}
+      type={props.type}
+      variant={props.variant}
     >
-      {text}
+      {props.children}
     </ReactButton>
   );
 };
 
 export const AddButton = ({
   disabled,
-  movie,
+  imdbID,
   addToWatchlist,
   onWatchlist,
   text,
   type,
   variant,
 }) => {
+
+  console.log(imdbID);
   const [disabledFlag, setDisabledFlag] = useState(disabled);
   const [btnText, setBtnText] = useState(text);
   const [btnVariant, setBtnVariant] = useState(variant);
@@ -35,11 +37,11 @@ export const AddButton = ({
       setBtnVariant(variant);
       setBtnText(text);
     }
-  }, [movie]);
+  }, [imdbID]);
 
   function handleOnClick() {
     updateToAdded();
-    addToWatchlist(movie.imdbID);
+    addToWatchlist(imdbID);
   }
 
   function updateToAdded() {
@@ -60,23 +62,14 @@ export const AddButton = ({
   );
 };
 
-export const DeleteButton = ({ disabled, movie, handleDeleteClick, text, type }) => {
-  const [disabledFlag, setDisabledFlag] = useState(disabled);
-  const [btnText, setBtnText] = useState(text);
-
-  useEffect(() => {
-    setDisabledFlag(disabled);
-    setBtnText(text);
-  }, [movie]);
-
+export const DeleteButton = ({ handleDeleteClick, imdbID, type }) => {
   return (
     <ReactButton
-      disabled={disabledFlag}
-      onClick={() => handleDeleteClick(movie.imdbID)}
+      onClick={() => handleDeleteClick(imdbID)}
       type={type}
       variant="danger"
     >
-      {btnText}
+      Remove
     </ReactButton>
   );
 };
