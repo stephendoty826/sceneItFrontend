@@ -29,7 +29,7 @@ router.delete("/watchlist/:imdbID", async (req, res) => { //todo add isAuth midd
   try{
     let imdbID = req.params.imdbID;
     await db.movies.destroy({where: {imdbID, userID: req.user.dataValues.id}})
-    res.json({msg: "movie deleted from from database"})
+    res.json({msg: "movie deleted from database"})
   }catch(err){
     res.json({err, msg: "error while deleting movie from database"});
   }
