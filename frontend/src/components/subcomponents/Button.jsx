@@ -22,16 +22,6 @@ export const AddButton = ({
   type
 }) => {
 
-  // useEffect(() => {
-  //   if (onWatchlist) {
-  //     updateToAdded();
-  //   } else {
-  //     setBtnDisabledFlag(disabled);
-  //     setBtnVariant(variant);
-  //     setBtnText(text);
-  //   }
-  // }, [imdbID]);
-
   function handleOnClick() {
     setAddBtnState({
       disabled: true,

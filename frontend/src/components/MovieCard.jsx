@@ -37,7 +37,6 @@ const MovieCard = ({ btnDetails, movie }) => {
               )}
               <Button
                 onClick={() => setShowModal(true)}
-                text="Details"
                 variant="secondary"
               >
                 Details
