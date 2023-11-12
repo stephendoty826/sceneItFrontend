@@ -27,7 +27,7 @@ const MovieCard = ({ btnDetails, movie }) => {
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src={movie.Poster} />
           <Card.Body className="d-flex flex-column justify-content-between">
-            <Card.Title className="text-center">{movie.Title}</Card.Title>
+            <Card.Title className="d-flex justify-content-center align-items-center h-100">{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
               {addOrDeleteButton(
                 btnDetails,

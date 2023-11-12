@@ -18,7 +18,6 @@ export const DetailsModal = ({
       .then((res) => res.json())
       .then((data) => {
         setMovieDetails(data);
-        console.log(data)
       });
   }, []);
 
