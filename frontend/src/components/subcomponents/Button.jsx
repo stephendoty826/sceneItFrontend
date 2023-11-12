@@ -1,54 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { Button as ReactButton } from "react-bootstrap";
 
-export const Button = ({
-  disabled,
-  imdbID,
-  movie,
-  onClick,
-  onWatchlist,
-  role,
-  text,
-  type,
-  variant,
-}) => {
-  const [disabledFlag, setDisabledFlag] = useState(disabled);
-  const [btnText, setBtnText] = useState(text);
-  const [btnVariant, setBtnVariant] = useState(variant);
+export const Button = (props) => {
+  return (
+    <ReactButton
+      disabled={props.disabled}
+      onClick={props.onClick}
+      type={props.type}
+      variant={props.variant}
+    >
+      {props.children}
+    </ReactButton>
+  );
+};
 
-  useEffect(() => {
-    if (role === "add" && onWatchlist) {
-      updateToAdded();
-    } else {
-      setDisabledFlag(disabled);
-      setBtnVariant(variant);
-      setBtnText(text);
-    }
-  }, [movie]);
+export const AddButton = ({
+  addBtnState,
+  setAddBtnState,
+  imdbID,
+  addToWatchlist,
+  type
+}) => {
 
   function handleOnClick() {
-    if (role === "add") {
-      updateToAdded();
-    }
-    if (onClick) {
-      onClick(imdbID);
-    }
-  }
-
-  function updateToAdded() {
-    setDisabledFlag(true);
-    setBtnText("On Watchlist");
-    setBtnVariant("success");
+    setAddBtnState({
+      disabled: true,
+      text: "On Watchlist",
+      variant: "success"
+    });
+    addToWatchlist(imdbID);
   }
 
   return (
     <ReactButton
-      disabled={disabledFlag}
+      disabled={addBtnState.disabled}
       onClick={handleOnClick}
       type={type}
-      variant={btnVariant}
+      variant={addBtnState.variant}
     >
-      {btnText}
+      {addBtnState.text}
+    </ReactButton>
+  );
+};
+
+export const DeleteButton = ({ handleDeleteClick, imdbID, type, setShowModal }) => {
+
+  function handleClick() {
+    handleDeleteClick(imdbID)
+    setShowModal && setShowModal(false)
+  }
+
+  return (
+    <ReactButton onClick={handleClick} type={type} variant="danger">
+      Remove
     </ReactButton>
   );
 };

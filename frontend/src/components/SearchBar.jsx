@@ -12,12 +12,6 @@ const SearchBar = ({ searchField, setSearchField, fetchMovieData }) => {
     fetchMovieData(urlEncodedSearchField);
   };
 
-  let searchBtnDetails = {
-    text: "Search",
-    type: "submit",
-    variant: "primary",
-  };
-
   return (
     <div className="row d-flex justify-content-center">
       <div className="col-11 search">
@@ -37,7 +31,9 @@ const SearchBar = ({ searchField, setSearchField, fetchMovieData }) => {
               id="search-bar"
               placeholder="Search for a movie or series..."
             />
-            <Button text="Search" type="submit" variant="primary" />
+            <Button type="submit" variant="primary">
+              Search
+            </Button>
           </Form.Group>
         </Form>
       </div>
