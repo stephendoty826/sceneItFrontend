@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./subcomponents/Button.jsx";
 import Card from "react-bootstrap/Card";
 import { DetailsModal } from "./DetailsModal.jsx";
@@ -13,13 +13,21 @@ const MovieCard = ({ btnDetails, movie }) => {
     variant: movie.onWatchlist ? "success" : "primary",
   });
 
+  useEffect(() => {
+    setAddBtnState({
+      disabled: movie.onWatchlist,
+      text: movie.onWatchlist ? "On Watchlist" : "Add To Watchlist",
+      variant: movie.onWatchlist ? "success" : "primary",
+    });
+  }, [movie])
+
   return (
     <>
       <div className="col-lg-4 col-md-6 pt-4 d-flex justify-content-center">
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src={movie.Poster} />
-          <Card.Body className="d-flex flex-column justify-content-center">
-            <Card.Title>{movie.Title}</Card.Title>
+          <Card.Body className="d-flex flex-column justify-content-between">
+            <Card.Title className="text-center">{movie.Title}</Card.Title>
             <div className="d-flex justify-content-between">
               {addOrDeleteButton(
                 btnDetails,
