@@ -1,11 +1,11 @@
-
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Cookies from 'js-cookie'
-import SearchBar from './components/SearchBar';
-import CardList from './components/CardList'
-import axios from 'axios';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import SearchBar from "./components/SearchBar";
+import CardList from "./components/CardList";
+import axios from "axios";
+import { displayRandomMovie } from "./util"
 
 function App() {
   const [watchlistIds, setWatchlistIds] = useState([]);
@@ -34,6 +34,8 @@ function App() {
           setWatchlistIds(imdbIDArray);
         });
     }
+    // display random movie
+    displayRandomMovie(fetchMovieData);
   }, []);
 
   const fetchMovieData = (urlEncodedSearchField) => {
@@ -120,10 +122,7 @@ function App() {
           setSearchField={setSearchField}
           fetchMovieData={fetchMovieData}
         />
-        <CardList
-          btnDetails={addBtnDetails}
-          movieArray={movieArray}
-        />
+        <CardList btnDetails={addBtnDetails} movieArray={movieArray} />
       </div>
     </>
   );
