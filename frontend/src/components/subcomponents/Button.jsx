@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button as ReactButton } from "react-bootstrap";
 
 export const Button = (props) => {

@@ -3,7 +3,7 @@ import CardList from './CardList';
 import axios from 'axios';
 
 const Watchlist = () => {
-
+  
   const [movieArray, setMovieArray] = useState([])
 
   useEffect(() => {
@@ -15,10 +15,11 @@ const Watchlist = () => {
       // fetchWatchlistData function call and pass in response
       fetchWatchlistData(imdbIDArray)
     })
-  }, [])
+  }, [movieArray])
 
   async function fetchWatchlistData(imdbIDArray){ // form for imdbIDArray is [{imdbID: "tt32345"}, {imdbID: "tt35545"}]
     // map through imdbIDArray and collect all the promises for each fetch
+    console.log("fetching watchlist data")
     let promisesArray = imdbIDArray.map(async imdbIDObj => {
       let imdbID = imdbIDObj.imdbID
       let response = await axios.get(`http://www.omdbapi.com/?apikey=c308ac58&i=${imdbID}&plot=full`)
@@ -43,7 +44,7 @@ const Watchlist = () => {
     .then(response => response.json())
     .then(response => console.log(response));
 
-    // deletes movie from frontend state
+    // deletes movie from frontend state //todo move this code into the second .then() and wrap it in a try-catch???
     let tempMovieArray = movieArray.filter(movie => movie.imdbID !== imdbID)
     setMovieArray(tempMovieArray)
   }

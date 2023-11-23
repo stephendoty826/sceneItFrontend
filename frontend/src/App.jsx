@@ -5,12 +5,15 @@ import Cookies from "js-cookie";
 import SearchBar from "./components/SearchBar";
 import CardList from "./components/CardList";
 import axios from "axios";
-import { displayRandomMovie } from "./util"
+import { displayRandomMovie } from "./util";
 
 function App() {
   const [watchlistIds, setWatchlistIds] = useState([]);
+  const [dropdownSelection, setDropdownSelection] = useState("")
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
+
+  console.log("dropdownSelection", dropdownSelection)
 
   const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -57,6 +60,8 @@ function App() {
             responseMovieArray
           );
           setMovieArray(tempMovieArray);
+        } else {
+          console.log(response);
         }
       });
   };
@@ -118,6 +123,8 @@ function App() {
           </div>
         </div>
         <SearchBar
+          dropdownSelection={dropdownSelection}
+          setDropdownSelection={setDropdownSelection}
           searchField={searchField}
           setSearchField={setSearchField}
           fetchMovieData={fetchMovieData}

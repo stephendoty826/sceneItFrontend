@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-// import Button from 'react-bootstrap/Button';
 import { Button } from "./subcomponents/Button.jsx";
+import { Dropdown } from "./subcomponents/Dropdown.jsx";
 
-const SearchBar = ({ searchField, setSearchField, fetchMovieData }) => {
+const SearchBar = ({
+  dropdownSelection,
+  setDropdownSelection,
+  searchField,
+  setSearchField,
+  fetchMovieData,
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -15,6 +21,12 @@ const SearchBar = ({ searchField, setSearchField, fetchMovieData }) => {
   return (
     <div className="row d-flex justify-content-center">
       <div className="col-11 search">
+        <Dropdown
+          dropdownSelection={dropdownSelection}
+          setDropdownSelection={setDropdownSelection}
+          options={["movie", "game", "series", "episode"]}
+          text="Text For Dropdown"
+        />
         <Form
           id="search-form"
           onSubmit={(e) => {
