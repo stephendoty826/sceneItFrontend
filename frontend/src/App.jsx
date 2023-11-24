@@ -13,8 +13,6 @@ function App() {
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
 
-  console.log("dropdownSelection", dropdownSelection)
-
   const apiKey = process.env.REACT_APP_API_KEY;
 
   const firstName = useParams().firstName;
@@ -44,12 +42,12 @@ function App() {
   const fetchMovieData = (urlEncodedSearchField) => {
     axios
       .get(
-        `http://www.omdbapi.com/?apikey=${apiKey}&s=${urlEncodedSearchField}&page=1`
+        `http://www.omdbapi.com/?apikey=${apiKey}&s=${urlEncodedSearchField}&page=1&type=${dropdownSelection.toLowerCase()}`
       )
       .then((response) => {
         if (response.data.Response === "True") {
           let responseMovieArray = response.data.Search.reduce((acc, movie) => {
-            if (movie.Poster !== "N/A" && movie.Type !== "game") {
+            if (movie.Poster !== "N/A") {
               // filters out those objects that don't have posters and are games
               return [...acc, movie];
             }
@@ -60,6 +58,7 @@ function App() {
             responseMovieArray
           );
           setMovieArray(tempMovieArray);
+          console.log(tempMovieArray);
         } else {
           console.log(response);
         }

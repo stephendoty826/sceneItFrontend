@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {Dropdown as ReactDropdown} from "react-bootstrap";
 
 export const Dropdown = ({dropdownSelection, setDropdownSelection, text, options }) => {

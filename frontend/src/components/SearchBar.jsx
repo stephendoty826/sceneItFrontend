@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "./subcomponents/Button.jsx";
 import { Dropdown } from "./subcomponents/Dropdown.jsx";
@@ -21,12 +21,14 @@ const SearchBar = ({
   return (
     <div className="row d-flex justify-content-center">
       <div className="col-11 search">
-        <Dropdown
-          dropdownSelection={dropdownSelection}
-          setDropdownSelection={setDropdownSelection}
-          options={["movie", "game", "series", "episode"]}
-          text="Text For Dropdown"
-        />
+        <div className="w-100 d-flex justify-content-center mb-4">
+          <Dropdown
+            dropdownSelection={dropdownSelection}
+            setDropdownSelection={setDropdownSelection}
+            options={["Movie", "Game", "Series", "Episode"]}
+            text="Choose a Category"
+          />
+        </div>
         <Form
           id="search-form"
           onSubmit={(e) => {

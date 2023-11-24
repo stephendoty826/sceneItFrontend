@@ -15,11 +15,10 @@ const Watchlist = () => {
       // fetchWatchlistData function call and pass in response
       fetchWatchlistData(imdbIDArray)
     })
-  }, [movieArray])
+  }, [])
 
   async function fetchWatchlistData(imdbIDArray){ // form for imdbIDArray is [{imdbID: "tt32345"}, {imdbID: "tt35545"}]
     // map through imdbIDArray and collect all the promises for each fetch
-    console.log("fetching watchlist data")
     let promisesArray = imdbIDArray.map(async imdbIDObj => {
       let imdbID = imdbIDObj.imdbID
       let response = await axios.get(`http://www.omdbapi.com/?apikey=c308ac58&i=${imdbID}&plot=full`)
@@ -31,6 +30,7 @@ const Watchlist = () => {
 
     // set movieArray to tempMovieArray
     setMovieArray(tempMovieArray)
+    console.log(tempMovieArray)
   }
 
   function handleDeleteClick(imdbID) {
