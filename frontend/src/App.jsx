@@ -9,7 +9,7 @@ import { displayRandomMovie } from "./util";
 
 function App() {
   const [watchlistIds, setWatchlistIds] = useState([]);
-  const [dropdownSelection, setDropdownSelection] = useState("")
+  const [dropdownSelection, setDropdownSelection] = useState("");
   const [searchField, setSearchField] = useState("");
   const [movieArray, setMovieArray] = useState([]);
 
