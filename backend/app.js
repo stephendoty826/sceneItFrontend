@@ -31,9 +31,9 @@ app.use(express.json());
  */
 
 // create database
-const sequelize = new Sequelize("sceneItFullStack", "postgres", null, {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   dialect: "postgres",
-  host: "127.0.0.1",
+  host: process.env.DB_HOST,
 });
 
 // Define a model for your session table
