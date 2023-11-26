@@ -24,7 +24,7 @@ const MovieCard = ({ btnDetails, movie }) => {
   return (
     <>
       <div className="col-lg-4 col-md-6 pt-4 d-flex justify-content-center">
-        <Card style={{ width: "18rem" }}>
+        <Card className="cardShadows" style={{ width: "18rem" }}>
           <Card.Img variant="top" src={movie.Poster} />
           <Card.Body className="d-flex flex-column justify-content-between">
             <Card.Title className="d-flex justify-content-center align-items-center h-100">{movie.Title}</Card.Title>

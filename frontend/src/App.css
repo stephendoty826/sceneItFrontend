@@ -25,3 +25,8 @@ body {
 	border: 3px solid #9B1C21;
 	/* background-color: #0000004d; */
 }
+
+.cardShadows{
+	-webkit-box-shadow: 5px 5px 10px 2px rgba(0,0,0,0.5); 
+box-shadow: 5px 5px 10px 2px rgba(0,0,0,0.5);
+}
