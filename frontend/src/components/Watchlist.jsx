@@ -7,14 +7,14 @@ const Watchlist = () => {
   const [movieArray, setMovieArray] = useState([])
 
   useEffect(() => {
-    fetch("/watchlist")
-    .then(response => {
-      return response.json()
-    })
-    .then(imdbIDArray => {
-      // fetchWatchlistData function call and pass in response
-      fetchWatchlistData(imdbIDArray)
-    })
+    fetch("https://sceneitbackend.onrender.com/watchlist")
+      .then((response) => {
+        return response.json();
+      })
+      .then((imdbIDArray) => {
+        // fetchWatchlistData function call and pass in response
+        fetchWatchlistData(imdbIDArray);
+      });
   }, [])
 
   async function fetchWatchlistData(imdbIDArray){ // form for imdbIDArray is [{imdbID: "tt32345"}, {imdbID: "tt35545"}]
@@ -34,14 +34,14 @@ const Watchlist = () => {
 
   function handleDeleteClick(imdbID) {
     // fetch to delete movie from database
-    fetch(`/watchlist/${imdbID}`,{
+    fetch(`https://sceneitbackend.onrender.com/watchlist/${imdbID}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "applications/json"
-      }
+        "Content-Type": "applications/json",
+      },
     })
-    .then(response => response.json())
-    .then(response => console.log(response));
+      .then((response) => response.json())
+      .then((response) => console.log(response));
 
     // deletes movie from frontend state
     let tempMovieArray = movieArray.filter(movie => movie.imdbID !== imdbID)

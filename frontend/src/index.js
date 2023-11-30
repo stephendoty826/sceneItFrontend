@@ -9,11 +9,6 @@ import Watchlist from './components/Watchlist';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Redirects to /home so there is a query string parameter for the "firstname field". Default is "home"
-if(window.location.href ===  "http://localhost:3000/"){
-  window.location.href = "http://localhost:3000/home"
-}
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

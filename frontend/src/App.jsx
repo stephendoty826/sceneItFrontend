@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     // fetch watchlist imdbIDs so that array can be passed to isMovieOnWatchlist function
     if (firstNameInCookies) {
-      fetch("/watchlist") //todo use thunk???
+      fetch("https://sceneitbackend.onrender.com/watchlist") //todo use thunk???
         .then((response) => {
           return response.json();
         })
@@ -88,7 +88,7 @@ function App() {
     setWatchlistIds([...watchlistIds, { imdbID }]);
 
     // fetch to add to db
-    fetch(`/watchlist/${imdbID}`, {
+    fetch(`https://sceneitbackend.onrender.com/watchlist/${imdbID}`, {
       method: "POST",
       headers: {
         "Content-Type": "applications/json",
