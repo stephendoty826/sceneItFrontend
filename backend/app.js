@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cors = require("cors")
 const session = require("express-session");
 const Sequelize = require("sequelize");
 // initialze sequelize with session store
@@ -19,6 +19,13 @@ const port = 3050;
 require("dotenv").config();
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.use(helmet());
 
