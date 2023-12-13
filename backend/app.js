@@ -31,10 +31,15 @@ app.use(express.json());
  */
 
 // create database
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-  dialect: "postgres",
-  host: process.env.DB_HOST,
-});
+const sequelize = new Sequelize(
+  "cdsmdttf",
+  "cdsmdttf",
+  process.env.DB_PASSWORD,
+  {
+    dialect: "postgres",
+    host: "berry.db.elephantsql.com",
+  }
+);
 
 // Define a model for your session table
 const sessionData = sequelize.define("sessionData", {
