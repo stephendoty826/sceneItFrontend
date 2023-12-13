@@ -32,12 +32,12 @@ app.use(express.json());
 
 // create database
 const sequelize = new Sequelize(
-  "cdsmdttf",
-  "cdsmdttf",
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   {
     dialect: "postgres",
-    host: "berry.db.elephantsql.com",
+    host: process.env.DB_HOST,
   }
 );
 
